@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Classmates</title>
+    <style>
+        body {
+            font-family: 'Times New Roman', Times, serif, sans-serif;
+            max-width: 800px;
+            margin: 30px auto;
+            padding: 20px;
+        }
+        .classmate-list {
+            margin: 20px 0;
+            padding: 10px;
+        }
+        .classmate-item {
+            padding: 10px;
+            margin: 8px 0;
+            border-bottom: 1px solid #ccc;
+        }
+        .add-section {
+            margin-top: 30px;
+            padding: 20px;
+            background: #f5f5f5;
+            border-radius: 5px;
+        }
+        input {
+            padding: 8px;
+            margin: 5px;
+            width: 200px;
+        }
+        button {
+            padding: 8px 15px;
+            margin: 5px;
+            background-color: #ff0000;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #ff0000;
+        }
+        .show-btn {
+            background-color: #ff0000;
+            margin-bottom: 20px;
+        }
+        .show-btn:hover {
+            background-color: #ff0000;
+        }
+        h2 {
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <h1>My Classmates</h1>
+    
+    <button class="show-btn" onclick="displayClassmates()">Show Classmates</button>
+    
+    <div class="classmate-list">
+        <h2>Classmates List:</h2>
+        <div id="classmatesContainer"></div>
+    </div>
+
+    <div class="add-section">
+        <h2>Add a New Classmate</h2>
+        <input type="text" id="name" placeholder="Name">
+        <input type="text" id="section" placeholder="Section">
+        <input type="text" id="subject" placeholder="Favorite Subject">
+        <button onclick="addClassmate()">Add Classmate</button>
+    </div>
+
+    <script>
+        // Store classmates in memory (disappears on refresh)
+        let classmates = [];
+
+        // Initial 5 classmates
+        const initialClassmates = [
+            { name: "Deryck Tan", section: "10-Topaz", favorite_subject: "TLE" },
+            { name: "Sean Cotioco", section: "10-Topaz", favorite_subject: "Mathematics" },
+            { name: "Sang-Heon Choi", section: "10-Topaz", favorite_subject: "Science" },
+            { name: "Simrandip Kaur", section: "10-Topaz", favorite_subject: "Physical Education" },
+            { name: "Harmony Yao", section: "10-Topaz", favorite_subject: "English" }
+        ];
+
+        // load button!! saw this on reddittt
+        classmates = [...initialClassmates];
+
+        //loop display list of classmates for 5 initial classmates
+        function displayClassmates() {
+            const container = document.getElementById('classmatesContainer');
+            
+            if (classmates.length === 0) {
+                container.innerHTML = '<p>No classmates yet.</p>';
+                return;
+            }
+            
+            let html = '';
+            for (let i = 0; i < classmates.length; i++) {
+                html += `<div class="classmate-item">
+                    ${i+1}. Hi! My name is ${classmates[i].name}. 
+                    I am from section ${classmates[i].section}, 
+                    and my favorite subject is ${classmates[i].favorite_subject}.
+                </div>`;
+            }
+            container.innerHTML = html;
+        }
+
+        //add here
+        function addClassmate() {
+            const name = document.getElementById('name').value.trim();
+            const section = document.getElementById('section').value.trim();
+            const subject = document.getElementById('subject').value.trim();
+            
+            if (!name || !section || !subject) {
+                alert('Please fill in all fields!');
+                return;
+            }
+            
+            // Add new classmate to the list
+            classmates.push({
+                name: name,
+                section: section,
+                favorite_subject: subject
+            });
+            
+            // Clear form
+            document.getElementById('name').value = '';
+            document.getElementById('section').value = '';
+            document.getElementById('subject').value = '';
+            
+            //display update
+            displayClassmates();
+            
+            //confirmation docummentgetleementbyid thing
+            alert(`${name} has been added! (Will disappear on refresh matey)`);
+        }
+
+        // Note: displayClassmates() will be called when clicking the "Show Classmates" button
+        // The list starts empty until you click the button
+    </script>
+</body>
+</html>
